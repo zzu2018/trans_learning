@@ -58,8 +58,6 @@ for data_name in ALL_DATA_NAMES:
         if verbose is True:
             model.summary()
 
-        # hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=nb_epochs, shuffle=True,
-        #                  verbose=verbose, validation_data=(x_test, y_test), callbacks=callbacks)
         hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=nb_epochs, shuffle=True,
                          verbose=verbose, validation_split=0.1, callbacks=callbacks)
 
