@@ -17,7 +17,7 @@ carrier_nums = 90
 kk = 30  # 测试集的比例 10/100
 
 # all data names
-ALL_DATA_NAMES = ['vData2', 'vData3']  # 所有数据集的名称
+ALL_DATA_NAMES = ['vData2']  # 所有数据集的名称
 ALL_TEST_DATA_NAMES = ['vData2', 'vData3']  # 所有数据集的名称
 
 result_save_path = 'checkpoint/train_scratch/'
