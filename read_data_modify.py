@@ -40,7 +40,7 @@ def csv_import(activity_list, train_data_path):
         xx = np.delete(xx, rows[np.where(cols == 0)], 0)
         yy = np.delete(yy, rows[np.where(cols == 0)], 0)
 
-        xx = xx.reshape((len(xx), slide_win_size, int(carrier_nums/3), 3)).transpose((0, 2, 1, 3))
+        xx = xx.reshape((len(xx), slide_win_size, int(carrier_nums / 3), 3)).transpose((0, 2, 1, 3))
         # 1000 Hz to 500 Hz (To avoid memory error)
         # if is_data_halve:
         #     xx = xx[:, ::2, :carrier_nums]
@@ -55,7 +55,6 @@ def csv_import(activity_list, train_data_path):
 
 
 def read_data(train_data_dir, activity_list):
-
     train_data_path = train_data_dir + '{0}_' + str(slide_win_size) + '_' + str(threshold) + '_{1}.csv'
     x_dict, y_dict = csv_import(activity_list, train_data_path)
 
@@ -93,9 +92,30 @@ def read_data(train_data_dir, activity_list):
     return x_train, y_train, x_test, y_test
 
 
+# def visible_data(data_set, file_name):
+#     path = INPUT_RAW_DATA_PKG + data_set + '/' + file_name
+#     print('可视化数据文件路径：', path)
+#
+#     data = np.array(pd.read_csv(path, header=None))
+#     time_steps, subcarriers = data.shape
+#     subcarrier = int(subcarriers / 3)
+#     data = data.reshape((time_steps, subcarrier, 3)).transpose((1, 0, 2))
+#
+#     anta_1_data = data[:, :, 0]
+#     print(anta_1_data)
+#     anta_2_data = data[:, :, 1]
+#     anta_3_data = data[:, :, 2]
+#
+#     plt.figure(figsize=(6, 8))
+#
+#     plt.imshow(anta_1_data)
+#     plt.savefig('test.png')
+
+
 # for data_name in ALL_DATA_NAMES:
 #     print(data_name + ' =' * 20)
 #     x_train, y_train, x_test, y_test = read_data(data_name)
 #     print('x_train len: ', len(x_train))
 #     print('y_train len: ', len(y_train))
 #     print('=' * 30)
+

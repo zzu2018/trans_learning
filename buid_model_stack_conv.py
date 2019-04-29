@@ -25,7 +25,7 @@ def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, fre
     if pre_model_path is not None:
         print('pre_model_path:', pre_model_path)
         print('loading model...')
-        pre_model = keras.models.load_model(pre_model_path)
+        pre_model = keras.models.load_model(pre_model_path)  # 加载模型
         print('loaded model !!!')
         for i in range(len(model.layers) - 1):
             model.layers[i].set_weights(pre_model.layers[i].get_weights())
