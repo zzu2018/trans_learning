@@ -122,3 +122,27 @@ def choose_best_model(ckp_path):
             best_val_model_path = path
     print('best model: ', best_val_model_path)
     return best_val_model_path
+
+
+def generate_arrays_from_file(data_name, batch_size):
+    while 1:
+        x_train = np.load('train_test_dataset/' + data_name + '_train.npz')
+        y_train = np.load('train_test_dataset/' + data_name + '_train_labels.npz')
+        x_train = x_train['arr']
+        y_train = y_train['arr']
+
+        cnt = 0
+        X = []
+        Y = []
+        for (train, label) in zip(x_train, y_train):
+            # create Numpy arrays of input data
+            # and labels, from each line in the file
+            X.append(train)
+            Y.append(label)
+            cnt += 1
+            if cnt == batch_size:
+                cnt = 0
+                yield (np.array(X), np.array(Y))
+                X = []
+                Y = []
+    f.close()
