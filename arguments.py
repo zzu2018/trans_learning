@@ -14,6 +14,7 @@ slide_steps = 500   # 每次滑动的步数
 
 carrier_nums = 90  # 子载波总数
 
+input_shape = (int(carrier_nums/3), slide_win_size, 3)
 kk = 10  # 测试集的比例 10/100
 
 ALL_DATA_NAMES = ['vData2']  # 所有数据集的名称

@@ -78,6 +78,9 @@ for data_name in ALL_DATA_NAMES:
     for s in label_files:
         label_ = s.split('\\')[-1].split('_')[1]  # e.g. anno_run_*_*.csv  --> run
         activity_list.add(label_)
+
+
+
     activity_list = sorted(list(activity_list))
     print(data_name + '的标签: ', activity_list)
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

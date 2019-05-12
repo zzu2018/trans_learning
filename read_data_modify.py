@@ -20,7 +20,7 @@ def return_labels(data_name):
 def csv_import(activity_list, train_data_path):
     x_dic = {}
     y_dic = {}
-    print("csv file importing...")
+    # print("csv file importing...")
 
     for i in activity_list:
         skip_row = 2  # Skip every 2 rows -> overlap 800ms to 600ms  (To avoid memory error)
@@ -49,12 +49,12 @@ def csv_import(activity_list, train_data_path):
         x_dic[str(i)] = xx
         y_dic[str(i)] = yy
 
-        print("finished_" + str(i))
+        # print("finished_" + str(i))
 
     return x_dic, y_dic
 
 
-def read_data(train_data_dir, activity_list):
+def read_data(train_data_dir, activity_list, is_save=False, data_name=None):
     train_data_path = train_data_dir + '{0}_' + str(slide_win_size) + '_' + str(threshold) + '_{1}.csv'
     x_dict, y_dict = csv_import(activity_list, train_data_path)
 
@@ -89,8 +89,22 @@ def read_data(train_data_dir, activity_list):
     y_train = y_train[:, 1:]
     y_test = y_test[:, 1:]
 
-    return x_train, y_train, x_test, y_test
-
+    if is_save is True:
+        num_examples = len(x_train)
+        first_perm = np.arange(num_examples)
+        np.random.shuffle(first_perm)
+        x_train = x_train[first_perm]
+        y_train = y_train[first_perm]
+        train_shape = x_train.shape
+        test_shape = x_test.shape
+        x_train.reshape((train_shape[0], train_shape[1]*train_shape[2]*train_shape[3]))
+        x_test.reshape((test_shape[0], test_shape[1]*test_shape[2]*test_shape[3]))
+        np.savez('train_test_dataset/' + data_name+'_train.npz', arr=x_train)
+        np.savez('train_test_dataset/' + data_name+'_test.npz', arr=x_test)
+        np.savez('train_test_dataset/' + data_name+'_train_labels.npz', arr=y_train)
+        np.savez('train_test_dataset/' + data_name+'_test_labels.npz', arr=y_test)
+    else:
+        return x_train, y_train, x_test, y_test
 
 # def visible_data(data_set, file_name):
 #     path = INPUT_RAW_DATA_PKG + data_set + '/' + file_name
@@ -101,16 +115,22 @@ def read_data(train_data_dir, activity_list):
 #     subcarrier = int(subcarriers / 3)
 #     data = data.reshape((time_steps, subcarrier, 3)).transpose((1, 0, 2))
 #
+#     # sum_data = np.sum(data, axis=2)[:, :100]
+#
 #     anta_1_data = data[:, :, 0]
-#     print(anta_1_data)
+#     # print(anta_1_data)
 #     anta_2_data = data[:, :, 1]
 #     anta_3_data = data[:, :, 2]
 #
-#     plt.figure(figsize=(6, 8))
+#     plt.ylim(0, subcarrier)
+#     plt.xlim([0, 3000])
 #
 #     plt.imshow(anta_1_data)
-#     plt.savefig('test.png')
-
+#     plt.show()
+#     # plt.savefig('test.png')
+#
+#
+# visible_data('vData2', 'run_chen_1.csv')
 
 # for data_name in ALL_DATA_NAMES:
 #     print(data_name + ' =' * 20)
@@ -118,4 +138,3 @@ def read_data(train_data_dir, activity_list):
 #     print('x_train len: ', len(x_train))
 #     print('y_train len: ', len(y_train))
 #     print('=' * 30)
-

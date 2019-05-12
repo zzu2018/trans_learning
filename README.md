@@ -3,10 +3,11 @@
 
 # 项目结构
 arguments.py 参数设置
+
 ## 原始数据处理
 process_data_modify.py  
  
- 从input_raw_data_pkg文件夹中读取原始数据，经程序处理后的数据输出到processed_data_pkg文件夹
+从input_raw_data_pkg文件夹中读取原始数据，经程序处理后的数据输出到processed_data_pkg文件夹
 ## 读取数据
 read_data_modify.py 
 
