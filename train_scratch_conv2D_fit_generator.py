@@ -14,12 +14,13 @@ for data_name in ALL_DATA_NAMES:
     train_data_dir, activity_list = return_labels(data_name)  # 返回data_name数据集所在的文件目录和数据集的标签
     print('activity_list: ', activity_list)
     # read_data(train_data_dir, activity_list, is_save=True, data_name=data_name)
+    # exit()
     # x_train, y_train, x_test, y_test = read_data(train_data_dir, activity_list)
     # 加载测试数据
     x_test = np.load('train_test_dataset/' + data_name+'_test.npz')
     y_test = np.load('train_test_dataset/' + data_name+'_test_labels.npz')
     x_test = x_test['arr']
-    x_test.reshape(len(x_test), int(carrier_nums/3), slide_win_size, 3)
+    x_test = x_test.reshape(len(x_test), int(carrier_nums/3), slide_win_size, 3)
     y_test = y_test['arr']
 
     # save orignal y because later we will use binary

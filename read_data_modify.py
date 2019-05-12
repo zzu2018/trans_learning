@@ -97,11 +97,11 @@ def read_data(train_data_dir, activity_list, is_save=False, data_name=None):
         y_train = y_train[first_perm]
         train_shape = x_train.shape
         test_shape = x_test.shape
-        x_train.reshape((train_shape[0], train_shape[1]*train_shape[2]*train_shape[3]))
-        x_test.reshape((test_shape[0], test_shape[1]*test_shape[2]*test_shape[3]))
-        np.savez('train_test_dataset/' + data_name+'_train.npz', arr=x_train)
+        x_train = x_train.reshape((train_shape[0], train_shape[1]*train_shape[2]*train_shape[3]))
+        x_test = x_test.reshape((test_shape[0], test_shape[1]*test_shape[2]*test_shape[3]))
+        np.savetxt('train_test_dataset/' + data_name+'_train.csv', x_train, fmt='%.6f', delimiter=',')
         np.savez('train_test_dataset/' + data_name+'_test.npz', arr=x_test)
-        np.savez('train_test_dataset/' + data_name+'_train_labels.npz', arr=y_train)
+        np.savetxt('train_test_dataset/' + data_name+'_train_labels.csv', y_train, fmt='%d')
         np.savez('train_test_dataset/' + data_name+'_test_labels.npz', arr=y_test)
     else:
         return x_train, y_train, x_test, y_test

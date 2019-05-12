@@ -1,5 +1,6 @@
 from builtins import print
 import glob
+import csv
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -127,18 +128,18 @@ def choose_best_model(ckp_path):
 
 def generate_arrays_from_file(data_name, batch_size):
     while 1:
-        x_train = np.load('train_test_dataset/' + data_name + '_train.npz')
-        y_train = np.load('train_test_dataset/' + data_name + '_train_labels.npz')
-        x_train = x_train['arr']
-        y_train = y_train['arr']
+        f_train = open('train_test_dataset/' + data_name + '_train.csv')
+        f_label = open('train_test_dataset/' + data_name + '_train_labels.csv')
 
         cnt = 0
         X = []
         Y = []
-        for (train, label) in zip(x_train, y_train):
+        for (train, label) in zip(f_train, f_label):
             # create Numpy arrays of input data
             # and labels, from each line in the file
+            train = [float(v) for v in str(train).split(',')]
             X.append(train)
+            label = [int(v) for v in str(label).split(' ')]
             Y.append(label)
             cnt += 1
             if cnt == batch_size:
