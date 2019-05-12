@@ -3,6 +3,7 @@ import glob
 import numpy as np
 import pandas as pd
 import matplotlib
+from arguments import *
 
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
@@ -142,7 +143,7 @@ def generate_arrays_from_file(data_name, batch_size):
             cnt += 1
             if cnt == batch_size:
                 cnt = 0
-                yield (np.array(X), np.array(Y))
+                yield (np.array(X).reshape(len(X), int(carrier_nums/3), slide_win_size, 3), np.array(Y))
                 X = []
                 Y = []
     f.close()

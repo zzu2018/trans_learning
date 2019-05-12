@@ -19,6 +19,7 @@ for data_name in ALL_DATA_NAMES:
     x_test = np.load('train_test_dataset/' + data_name+'_test.npz')
     y_test = np.load('train_test_dataset/' + data_name+'_test_labels.npz')
     x_test = x_test['arr']
+    x_test.reshape(len(x_test), int(carrier_nums/3), slide_win_size, 3)
     y_test = y_test['arr']
 
     # save orignal y because later we will use binary
