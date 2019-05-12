@@ -25,15 +25,15 @@ def csv_import(activity_list, train_data_path):
     for i in activity_list:
         skip_row = 2  # Skip every 2 rows -> overlap 800ms to 600ms  (To avoid memory error)
         num_lines = sum(1 for l in open(train_data_path.format('xx', str(i))))
-        # skip_idx = [x for x in range(1, num_lines) if x % skip_row != 0]
-        # xx = np.array(
-        #     pd.read_csv(train_data_path.format('xx', str(i)), header=None, skiprows=skip_idx))
-        # yy = np.array(
-        #     pd.read_csv(train_data_path.format('yy', str(i)), header=None, skiprows=skip_idx))
+        skip_idx = [x for x in range(1, num_lines) if x % skip_row != 0]
         xx = np.array(
-            pd.read_csv(train_data_path.format('xx', str(i)), header=None))
+             pd.read_csv(train_data_path.format('xx', str(i)), header=None, skiprows=skip_idx))
         yy = np.array(
-            pd.read_csv(train_data_path.format('yy', str(i)), header=None))
+            pd.read_csv(train_data_path.format('yy', str(i)), header=None, skiprows=skip_idx))
+        # xx = np.array(
+        #     pd.read_csv(train_data_path.format('xx', str(i)), header=None))
+        # yy = np.array(
+        #     pd.read_csv(train_data_path.format('yy', str(i)), header=None))
 
         # eliminate the NoActivity Data
         rows, cols = np.where(yy > 0)
