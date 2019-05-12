@@ -73,10 +73,11 @@ for data_name in ALL_DATA_NAMES:
     # +++++++++++++++++++从标记文件的文件名中提取标签+++++++++++++++++++++
     activity_list = set()
     current_data_name = INPUT_RAW_DATA_PKG + data_name + '/'
-    label_files = current_data_name + "anno_*.csv"
+    print('current_data_name: ', current_data_name)
+    label_files = current_data_name + "annotation*.csv"
     label_files = sorted(glob.glob(label_files))
     for s in label_files:
-        label_ = s.split('\\')[-1].split('_')[1]  # e.g. anno_run_*_*.csv  --> run
+        label_ = s.split('/')[-1].split('_')[1]  # e.g. anno_run_*_*.csv  --> run
         activity_list.add(label_)
 
 
@@ -86,8 +87,8 @@ for data_name in ALL_DATA_NAMES:
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     for label in activity_list:
-        x_input_dir = current_data_name + "{0}*.csv".format(label)
-        y_input_dir = current_data_name + "anno*{0}*.csv".format(label)
+        x_input_dir = current_data_name + "input*{0}*.csv".format(label)
+        y_input_dir = current_data_name + "annotation*{0}*.csv".format(label)
         data_file_path = INPUT_PROCESSED_DATA_PKG + data_name + '_input_files_win{0}_steps{1}/' \
             .format(slide_win_size, slide_steps)
         if not os.path.exists(data_file_path):
