@@ -1,6 +1,5 @@
 import time
 import keras
-import numpy as np
 from buid_model_stack_conv2D import build_model
 from read_data_modify import read_data, return_labels
 from utils.utils import *
@@ -78,5 +77,7 @@ for data_name in ALL_DATA_NAMES:
     df_metrics = save_logs(ckp_metric_file_path, hist, y_pred, y_true, duration, y_true_val, y_pred_val)
 
     print(df_metrics)
+
+    save_confusion(y_true, y_pred, activity_list, ckp_metric_file_path)
 
 keras.backend.clear_session()

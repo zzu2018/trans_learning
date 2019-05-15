@@ -1,6 +1,7 @@
+import itertools
 from builtins import print
 import glob
-import csv
+from sklearn.metrics import confusion_matrix
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -126,6 +127,32 @@ def choose_best_model(ckp_path):
     return best_val_model_path
 
 
+def save_confusion(true_label, pred_label, classes, save_path='/'):
+    lmr_matrix = confusion_matrix(true_label, pred_label)
+    acc_score = accuracy_score(true_label, pred_label)
+
+    plt.imshow(lmr_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+    plt.xlabel('Pre label')
+    plt.ylabel('True label')
+    # lmr_matrix = lmr_matrix.astype('float') / lmr_matrix.sum(axis=1)[:, np.newaxis]
+    # fmt = '.2f'
+    # thresh = lmr_matrix.max() / 2.
+    # for i, j in itertools.product(range(lmr_matrix.shape[0]), range(lmr_matrix.shape[1])):
+    #     plt.text(j, i, format(lmr_matrix[i, j], fmt),
+    #              horizontalalignment="center",
+    #              color="black" if lmr_matrix[i, j] > thresh else "red")
+    #
+    for i, j in itertools.product(range(lmr_matrix.shape[0]), range(lmr_matrix.shape[1])):
+        plt.text(j, i, lmr_matrix[i, j])
+    plt.title('confusion matrix acc={:.3f}'.format(acc_score), fontsize=10)
+    plt.tight_layout()
+    plt.savefig(save_path + 'confusion.png')
+
+
 def generate_arrays_from_file(data_name, batch_size):
     while 1:
         f_train = open('train_test_dataset/' + data_name + '_train.csv')
@@ -144,7 +171,7 @@ def generate_arrays_from_file(data_name, batch_size):
             cnt += 1
             if cnt == batch_size:
                 cnt = 0
-                yield (np.array(X).reshape(len(X), int(carrier_nums/3), slide_win_size, 3), np.array(Y))
+                yield (np.array(X).reshape(len(X), int(carrier_nums / 3), slide_win_size, 3), np.array(Y))
                 X = []
                 Y = []
     f.close()
