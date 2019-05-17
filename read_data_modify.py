@@ -20,7 +20,7 @@ def return_labels(data_name):
 def csv_import(activity_list, train_data_path):
     x_dic = {}
     y_dic = {}
-    # print("csv file importing...")
+    print("csv file importing...")
 
     for i in activity_list:
         skip_row = 2  # Skip every 2 rows -> overlap 800ms to 600ms  (To avoid memory error)
@@ -49,7 +49,7 @@ def csv_import(activity_list, train_data_path):
         x_dic[str(i)] = xx
         y_dic[str(i)] = yy
 
-        # print("finished_" + str(i))
+        print("finished_" + str(i))
 
     return x_dic, y_dic
 

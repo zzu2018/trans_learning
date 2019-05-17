@@ -1,6 +1,6 @@
 import time
 import keras
-from buid_model_stack_conv2D import build_model
+from buid_model_stack_conv2Dmax import build_model
 from read_data_modify import read_data, return_labels, get_train_test_data
 from utils.utils import *
 from arguments import *
@@ -12,11 +12,9 @@ for data_name in ALL_DATA_NAMES:
     print('正在训练-- ', data_name, ' --数据集')
     train_data_dir, activity_list = return_labels(data_name)  # 返回data_name数据集所在的文件目录和数据集的标签
     print('activity_list: ', activity_list)
-    # read_data(train_data_dir, activity_list, is_save=True, data_name=data_name)
-    # exit()
     # x_train, y_train, x_test, y_test = read_data(train_data_dir, activity_list)
     # 加载测试数据
-    get_train_test_data(train_data_dir, activity_list, data_name=data_name)
+    # get_train_test_data(train_data_dir, activity_list, data_name=data_name)
     x_test = np.load('train_test_dataset/' + data_name+'_test.npz')
     y_test = np.load('train_test_dataset/' + data_name+'_test_labels.npz')
     x_test = x_test['arr']
@@ -62,7 +60,7 @@ for data_name in ALL_DATA_NAMES:
         model.summary()
     hist = model.fit_generator(generator=generate_arrays_from_file(data_name, batch_size=batch_size),
                                steps_per_epoch=int(len(x_test)*kk/batch_size),
-                               epochs=nb_epochs, shuffle=True, verbose=verbose, validation_data=(x_test, y_test),
+                               epochs=nb_epochs, shuffle=True, verbose=verbose,
                                callbacks=callbacks)
     # hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=nb_epochs, shuffle=True,
     #                  verbose=verbose, validation_data=(x_test, y_test), callbacks=callbacks)
