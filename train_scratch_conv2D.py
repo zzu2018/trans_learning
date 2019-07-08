@@ -1,7 +1,7 @@
 import time
 import keras
 
-from buid_model_stack_conv2Dmax import build_model
+from buid_model_stack_conv2D_compress import build_model
 from read_data_modify import read_data, return_labels
 from utils.utils import *
 from arguments import *
@@ -55,6 +55,7 @@ for data_name in ALL_DATA_NAMES:
     #                            steps_per_epoch=(len(x_train) + batch_size - 1) // batch_size,
     #                            epochs=nb_epochs, shuffle=True, verbose=verbose, validation_data=(x_test, y_test),
     #                            callbacks=callbacks)
+
     hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=nb_epochs, shuffle=True,
                      verbose=verbose, validation_data=(x_test, y_test), callbacks=callbacks)
 
@@ -69,5 +70,6 @@ for data_name in ALL_DATA_NAMES:
     df_metrics = save_logs(ckp_metric_file_path, hist, y_pred, y_true, duration, y_true_val, y_pred_val)
 
     print(df_metrics)
+    save_confusion(y_true, y_pred, activity_list, ckp_metric_file_path)
 
-keras.backend.clear_session()
+    keras.backend.clear_session()

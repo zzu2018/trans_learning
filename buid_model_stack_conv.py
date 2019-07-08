@@ -4,7 +4,7 @@ import keras
 def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, freezen_layers=None):
     input_layer = keras.layers.Input(input_shape)
 
-    conv1 = keras.layers.Conv1D(filters=128, kernel_size=8, padding='same')(input_layer)
+    conv1 = keras.layers.ConvD(filters=128, kernel_size=8, padding='same')(input_layer)
     conv1 = keras.layers.normalization.BatchNormalization()(conv1)
     conv1 = keras.layers.Activation(activation='relu')(conv1)
 

@@ -40,7 +40,7 @@ def csv_import(activity_list, train_data_path):
         xx = np.delete(xx, rows[np.where(cols == 0)], 0)
         yy = np.delete(yy, rows[np.where(cols == 0)], 0)
 
-        xx = xx.reshape((len(xx), slide_win_size, int(carrier_nums / 3), 3)).transpose((0, 2, 1, 3))
+        # xx = xx.reshape((len(xx), slide_win_size, int(carrier_nums / 3), 3)).transpose((0, 2, 1, 3)) #在这里控制数据输入形式
         # 1000 Hz to 500 Hz (To avoid memory error)
         # if is_data_halve:
         #     xx = xx[:, ::2, :carrier_nums]

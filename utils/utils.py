@@ -131,11 +131,11 @@ def save_confusion(true_label, pred_label, classes, save_path='/'):
     lmr_matrix = confusion_matrix(true_label, pred_label)
     acc_score = accuracy_score(true_label, pred_label)
 
-    plt.imshow(lmr_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.imshow(lmr_matrix, interpolation='nearest', cmap=plt.cm.Blues,aspect="auto")
     plt.colorbar()
     tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
-    plt.yticks(tick_marks, classes)
+    plt.xticks(tick_marks, classes, rotation=90,fontsize=5)
+    plt.yticks(tick_marks, classes,fontsize=5)
     plt.xlabel('Pre label')
     plt.ylabel('True label')
     # lmr_matrix = lmr_matrix.astype('float') / lmr_matrix.sum(axis=1)[:, np.newaxis]
@@ -146,8 +146,8 @@ def save_confusion(true_label, pred_label, classes, save_path='/'):
     #              horizontalalignment="center",
     #              color="black" if lmr_matrix[i, j] > thresh else "red")
     #
-    for i, j in itertools.product(range(lmr_matrix.shape[0]), range(lmr_matrix.shape[1])):
-        plt.text(j, i, lmr_matrix[i, j])
+    # for i, j in itertools.product(range(lmr_matrix.shape[0]), range(lmr_matrix.shape[1])):
+    #     plt.text(j, i, lmr_matrix[i, j], fontsize=4)
     plt.title('confusion matrix acc={:.3f}'.format(acc_score), fontsize=10)
     plt.tight_layout()
     plt.savefig(save_path + 'confusion.png')

@@ -14,7 +14,9 @@ for data_name in ALL_DATA_NAMES:
     print('activity_list: ', activity_list)
     # x_train, y_train, x_test, y_test = read_data(train_data_dir, activity_list)
     # 加载测试数据
-    # get_train_test_data(train_data_dir, activity_list, data_name=data_name)
+
+    get_train_test_data(train_data_dir, activity_list, data_name=data_name)
+
     x_test = np.load('train_test_dataset/' + data_name+'_test.npz')
     y_test = np.load('train_test_dataset/' + data_name+'_test_labels.npz')
     x_test = x_test['arr']
