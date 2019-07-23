@@ -1,7 +1,7 @@
 import time
 import keras
 
-from buid_model_stack_conv2D_compress import build_model
+from buid_model_stack_conv2D_new import build_model
 from read_data_modify import read_data, return_labels
 from utils.utils import *
 from arguments import *

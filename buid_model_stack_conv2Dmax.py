@@ -15,13 +15,8 @@ def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, fre
     conv3 = keras.layers.Conv2D(filters=256, kernel_size=3, padding='same')(conv2)
     conv3 = keras.layers.normalization.BatchNormalization()(conv3)
     conv3 = keras.layers.Activation('relu')(conv3)
-<<<<<<< Updated upstream
 
-    conv4 = keras.layers.Conv2D(filters=128, kernel_size=3, padding='same')(conv3)
-=======
-   
     conv4 = keras.layers.Conv2D(filters=256, kernel_size=3, padding='same')(conv3)
->>>>>>> Stashed changes
     conv4 = keras.layers.normalization.BatchNormalization()(conv4)
     conv4 = keras.layers.Activation(activation='relu')(conv4)
 
@@ -32,13 +27,8 @@ def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, fre
     conv6 = keras.layers.Conv2D(filters=128, kernel_size=3, padding='same')(conv5)
     conv6 = keras.layers.normalization.BatchNormalization()(conv6)
     conv6 = keras.layers.Activation('relu')(conv6)
-<<<<<<< Updated upstream
 
-    conv7 = keras.layers.Conv2D(filters=256, kernel_size=3, padding='same')(conv6)
-=======
-    
     conv7 = keras.layers.Conv2D(filters=128, kernel_size=3, padding='same')(conv6)
->>>>>>> Stashed changes
     conv7 = keras.layers.normalization.BatchNormalization()(conv7)
     conv7 = keras.layers.Activation(activation='relu')(conv7)
 
@@ -46,11 +36,8 @@ def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, fre
     conv8 = keras.layers.normalization.BatchNormalization()(conv8)
     conv8 = keras.layers.Activation('relu')(conv8)
 
-    conv9 = keras.layers.Conv2D(filters=128, kernel_size=3, padding='same')(conv8)
-    conv9 = keras.layers.normalization.BatchNormalization()(conv9)
-    conv9 = keras.layers.Activation('relu')(conv9)
 
-    gap_layer = keras.layers.pooling.GlobalAveragePooling2D()(conv9)
+    gap_layer = keras.layers.pooling.GlobalAveragePooling2D()(conv8)
     output_layer = keras.layers.Dense(nb_classes, activation='softmax')(gap_layer)
 
     model = keras.models.Model(inputs=input_layer, outputs=output_layer)

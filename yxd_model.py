@@ -84,7 +84,7 @@ n_steps = window_size  # timesteps
 n_hidden = 200  # hidden layer num of features original 200
 
 print('正在训练-- WiFi_data_old_20 --数据集')
-train_data_dir, activity_list = return_labels('WiFi_data_old_20')  # 返回data_name数据集所在的文件目录和数据集的标签
+train_data_dir, activity_list = return_labels('WiFi_data_old_50')  # 返回data_name数据集所在的文件目录和数据集的标签
 
 n_classes = len(activity_list)  # WiFi activity total classes
 
@@ -132,7 +132,7 @@ def RNN(x, weights, biases):
 
 ##### main #####
 pred = RNN(x, weights, biases)
-
+# WiFi_data_old_50
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
