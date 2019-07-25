@@ -21,7 +21,7 @@ ALL_DATA_NAMES = ['WiFi_data_old_50']  # 所有数据集的名称
 ALL_TEST_DATA_NAMES = ['vData2', 'vData3']  # 所有数据集的名称
 
 
-result_save_path = 'checkpoint/test_scratch/new_idea/'  # 数据训练后， 模型保存路径文件夹
+result_save_path = 'checkpoint/test_scratch/new_idea_1/'  # 数据训练后， 模型保存路径文件夹
 
 trans_learning_save_path = 'checkpoint/trans_learning/'  # 数据迁移学习后，模型保存路径文件夹
 

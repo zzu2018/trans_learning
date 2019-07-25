@@ -25,9 +25,16 @@ def build_model(input_shape, nb_classes, pre_model_path=None, freezen=False, fre
     conv3 = keras.layers.normalization.BatchNormalization()(conv3)
     conv3 = keras.layers.Activation('relu')(conv3)
 
+    conv4 = keras.layers.Conv2D(128, kernel_size=3, padding='same', )(conv3)
+    channel_4 = keras.layers.Conv2D(filters=128, kernel_size=1, padding='same')(input_layer)
+    conv4 = keras.layers.concatenate([conv4, channel_4], axis=3)
+    conv4= keras.layers.Conv2D(filters=64, kernel_size=1, padding='same')(conv4)
+    conv4 = keras.layers.normalization.BatchNormalization()(conv4)
+    conv4 = keras.layers.Activation('relu')(conv4)
 
 
-    gap_layer = keras.layers.pooling.GlobalAveragePooling2D()(conv3)
+
+    gap_layer = keras.layers.pooling.GlobalAveragePooling2D()(conv4)
 
     output_layer = keras.layers.Dense(nb_classes, activation='softmax')(gap_layer)
 
